@@ -90,7 +90,11 @@ API_AVAILABLE(ios(9.0))
 - (BOOL)canLaunchURL:(NSString *)urlString {
   NSURL *url = [NSURL URLWithString:urlString];
   UIApplication *application = [UIApplication sharedApplication];
-  return [application canOpenURL:url];
+  if (@available(iOS 16.0, *)) {
+      return [application canOpen:url]
+  }else{
+      return [application canOpenURL:url];
+  }
 }
 
 - (void)launchURL:(NSString *)urlString
